@@ -151,6 +151,7 @@ class TestAccountService(TestCase):
 
         data = response.get_json()
         self.assertEqual(len(data), 5)
+        
     def test_update_account(self):
         """ Should update an existing account """
         # create Account to update
