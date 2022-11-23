@@ -60,9 +60,8 @@ def create_accounts():
 ######################################################################
 # LIST ALL ACCOUNTS
 ######################################################################
-
 # ... place you code here to LIST accounts ...
-@app.route('/accounts', methods = ["GET"])
+@app.route('/accounts', methods=["GET"])
 def list_accounts():
     """List all accounts """
     app.logger.info("Request to list Accounts")
@@ -75,7 +74,7 @@ def list_accounts():
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
-@app.route('/accounts/<int:account_id>', methods = ["GET"])
+@app.route('/accounts/<int:account_id>', methods=["GET"])
 def get_account(account_id):
     """
     Reads an Account
@@ -83,17 +82,14 @@ def get_account(account_id):
     """
     # ... place you code here to READ an account ...
     app.logger.info("Request to read an Account with id: %s", account_id)
-
     account = Account.find(account_id)
     if not account:
         abort(status.HTTP_404_NOT_FOUND, f"Account with id [{account_id}] could not be found")
     return account.serialize(), status.HTTP_200_OK
-
-
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
-@app.route("/accounts/<int:account_id>", methods = ["PUT"])
+@app.route("/accounts/<int:account_id>", methods=["PUT"])
 def update_accounts(account_id):
     """Update an Account"""
     app.logger.info("Request to update an Account with id: %s", account_id)
@@ -104,13 +100,11 @@ def update_accounts(account_id):
     account.update()
     return account.serialize(), status.HTTP_200_OK
 # ... place you code here to UPDATE an account ...
-
 ######################################################################
 # DELETE AN ACCOUNT
 ######################################################################
-
 # ... place you code here to DELETE an account ...
-@app.route("/accounts/<int:account_id>", methods = ["DELETE"])
+@app.route("/accounts/<int:account_id>", methods=["DELETE"])
 def delete_accounts(account_id):
     """ DElete an Account"""
     app.logger.info("Request to delete an Account with id: %s", account_id)
@@ -121,8 +115,6 @@ def delete_accounts(account_id):
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
 ######################################################################
-
-
 def check_content_type(media_type):
     """Checks that the media type is correct"""
     content_type = request.headers.get("Content-Type")
