@@ -133,7 +133,7 @@ class TestAccountService(TestCase):
         """It should call an account and read it"""
         account = self._create_accounts(1)[0]
         response = self.client.get(
-            f"{BASE_URL}/{account.id}",content_type = "application/json"
+            f"{BASE_URL}/{account.id}", content_type="application/json"
             )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -144,7 +144,6 @@ class TestAccountService(TestCase):
         response = self.client.get(f"{BASE_URL}/0")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    
     def test_get_account_list(self):
         """ Should get a list of accounts """
         self._create_accounts(5)
@@ -157,17 +156,16 @@ class TestAccountService(TestCase):
         """ Should update an existing account """
         # create Account to update
         test_account = AccountFactory()
-        response = self.client.post(BASE_URL, json = test_account.serialize())
+        response=self.client.post(BASE_URL, json=test_account.serialize())
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # update the account
         new_account = response.get_json()
-        new_account["name"] = "New Name"
-        response = self.client.put(f"{BASE_URL}/{new_account['id']}", json = new_account)
+        new_account["name"]="New Name"
+        response = self.client.put(f"{BASE_URL}/{new_account['id']}", json=new_account)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         updated_account = response.get_json()
         self.assertEqual(updated_account["name"], "New Name")
 
-    
     def test_delete_account(self):
         """Should delete an account """
         account = self._create_accounts(1)[0]
@@ -175,9 +173,8 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 ######################################################################
-# S E C U R I T Y  T E S T   
+#S E C U R I T Y  T E S T   
 ######################################################################
-
     def test_security_headers(self):
         """It should return security headers """
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
@@ -191,7 +188,7 @@ class TestAccountService(TestCase):
         }
         for key, value in headers.items():
             self.assertEqual(response.headers.get(key), value)
-    
+
     def test_cors_security(self):
         """It should return a CORS header"""
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
